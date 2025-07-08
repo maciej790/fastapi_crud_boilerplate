@@ -1,19 +1,19 @@
 from pydantic import BaseModel
 from sqlmodel import Field, SQLModel
+from typing import Union
 
-#db table model
-class Tasks(SQLModel, table=True):
+class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    title: str = Field(index=True)
-    description: str = Field(index=True)
+    username: str = Field(index=True)
+    password: str = Field(index=True)
     
-#for update
-class UpdateTaskModel(BaseModel):
-    title : str
-    description : str   
-
-#for create
-class CreateTask(BaseModel):
-    title : str
-    description : str  
+class UserIn(BaseModel):
+    username: str = Field(index=True)
+    password: str = Field(index=True)
     
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    
+class TokenData(BaseModel):
+    username: Union[str, None] = None
